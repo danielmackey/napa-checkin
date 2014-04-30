@@ -1,0 +1,1 @@
+A 'checkin' service utilizing the [Napa](http://github.com/bellycard/napa) framework

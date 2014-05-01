@@ -1,1 +1,3 @@
-A 'checkin' service utilizing the [Napa](http://github.com/bellycard/napa) framework
+# Napa Checkin
+
+A "check-in" service built using [Napa](https://github.com/bellycard/napa).

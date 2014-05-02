@@ -37,6 +37,19 @@ describe CheckinsApi do
       expect(last_response.status).to eq 400
     end
 
+    it 'does not allow repeat checkins' do
+      # first checkin succeeds
+      post '/checkins', user_id: user.id, business_id: business.id
+      expect(last_response.status).to eq 201
+
+      # try again, right after
+      post '/checkins', user_id: user.id, business_id: business.id
+      response = JSON.parse(last_response.body)
+      expect(last_response.status).to eq 500
+      expect(response['error']['code']).to eq('record_invalid')
+      expect(response['error']['message']).to include('already recently checked in')
+    end
+
   end
 
 end

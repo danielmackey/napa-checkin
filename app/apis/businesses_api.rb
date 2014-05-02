@@ -32,7 +32,7 @@ class BusinessesApi < Grape::API
 
     desc 'Update an business'
     params do
-      requires :name, type: String, desc: 'business name'
+      optional :name, type: String, desc: 'business name'
       optional :website, type: String, desc: 'business website'
     end
     put do

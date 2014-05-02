@@ -56,6 +56,11 @@ describe BusinessesApi do
   describe 'PUT /businesses/:id' do
 
     it 'updates a business with valid attributes' do
+      business = FactoryGirl.create(:business)
+      put "/businesses/#{business.id}", website: 'http://superawesome.biz'
+      response = JSON.parse(last_response.body)
+      expect(last_response.status).to eq(200)
+      expect(response['data']['website']).to eq('http://superawesome.biz')
     end
 
   end

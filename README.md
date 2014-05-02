@@ -143,7 +143,23 @@ curl http://localhost:9393/businesses/1/checkins
 ```
 
 ```json
-{"data":[{"object_type":"checkin","id":"1","user_id":1,"business_id":1,"created_at":"2014-05-02 15:31:19 UTC"},{"object_type":"checkin","id":"2","user_id":1,"business_id":1,"created_at":"2014-05-02 17:45:05 UTC"}]}
+{
+  "data":[
+    {
+      "object_type":"checkin",
+      "id":"1",
+      "user_id":1,
+      "business_id":1,
+      "created_at":"2014-05-02 15:31:19 UTC"
+    },{
+      "object_type":"checkin",
+      "id":"2",
+      "user_id":1,
+      "business_id":1,
+      "created_at":"2014-05-02 17:45:05 UTC"
+    }
+  ]
+}
 ```
 
 ### User checkins
@@ -152,7 +168,23 @@ curl http://localhost:9393/users/1/checkins
 ```
 
 ```json
-{"data":[{"object_type":"checkin","id":"1","user_id":1,"business_id":1,"created_at":"2014-05-02 15:31:19 UTC"},{"object_type":"checkin","id":"2","user_id":1,"business_id":1,"created_at":"2014-05-02 17:45:05 UTC"}]}
+{
+  "data":[
+    {
+      "object_type":"checkin",
+      "id":"1",
+      "user_id":1,
+      "business_id":1,
+      "created_at":"2014-05-02 15:31:19 UTC"
+    },{
+      "object_type":"checkin",
+      "id":"2",
+      "user_id":1,
+      "business_id":1,
+      "created_at":"2014-05-02 17:45:05 UTC"
+    }
+  ]
+}
 ```
 
 

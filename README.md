@@ -125,7 +125,7 @@ and existing user in the system. If our client was a mobile app, where only
 only the logged in user should be able to check in to a business, we could
 add a `UserToken` model, and an login endpoint on the `UsersApi` to authenticate
 a user (with username/password) and return a token. The checkin endpoint would no
-longer require/allow an explicit user_id to be sent, and instead reference the token
+longer require/allow an explicit `user_id` to be sent, and instead reference the `token`
 to look up the user.
 
 

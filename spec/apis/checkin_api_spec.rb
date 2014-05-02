@@ -52,4 +52,22 @@ describe CheckinsApi do
 
   end
 
+  describe 'GET /checkins/:id' do
+
+    it 'returns an existing checkin' do
+      checkin = Checkin.create(user: user, business: business)
+      get "/checkins/#{checkin.id}"
+      response = JSON.parse(last_response.body)
+      expect(last_response.status).to eq 200
+      expect(response['data']['user_id']).to eq(user.id)
+      expect(response['data']['business_id']).to eq(business.id)
+    end
+
+    it 'returns 404 for non-existant checkin' do
+      get "/checkins/99999999"
+      expect(last_response.status).to eq(404)
+    end
+
+  end
+
 end

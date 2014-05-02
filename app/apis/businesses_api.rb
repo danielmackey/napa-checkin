@@ -41,5 +41,12 @@ class BusinessesApi < Grape::API
       business.update_attributes!(declared(params, include_missing: false))
       represent business, with: BusinessRepresenter
     end
+
+    desc 'Get list of checkins for business'
+    get :checkins do
+      business = Business.find(params[:id])
+      checkins = Checkin.filter(business: business)
+      represent checkins, with: CheckinRepresenter
+    end
   end
 end

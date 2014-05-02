@@ -141,7 +141,5 @@ rspec spec/
 
 ## TODO:
 - Add a `rake db:seed` task (possibly add to napa)
-- Add endpoint to list checkins for user @ `/users/:id/checkins`
-- Add endpoint to list checkins for business @ `/businesses/:id/checkins`
-- Add endpoint to list visitors for business @ `/businesses/:id/visitors`
+- Add endpoint to list unique visitors for business @ `/businesses/:id/visitors`
 

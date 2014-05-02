@@ -65,4 +65,23 @@ describe BusinessesApi do
 
   end
 
+  describe "GET /users/:id/checkins" do
+
+    it 'returns a list of checkins for this business' do
+      user_1 = FactoryGirl.create(:user, name: 'Jane Smith', email: 'jsmith@yahoo.com')
+      user_2 = FactoryGirl.create(:user, name: 'John Doe', email: 'johndoe@gmail.com')
+      business = FactoryGirl.create(:business)
+      checkin_1 = Checkin.create(user: user_1, business: business)
+      checkin_2 = Checkin.create(user: user_2, business: business)
+
+      get "/businesses/#{business.id}/checkins"
+      response = JSON.parse(last_response.body)
+
+      expect(last_response.status).to eq(200)
+      expect(response['data'].length).to eq(2)
+      expect(response['data']).to include(CheckinRepresenter.new(checkin_1).to_hash)
+    end
+
+  end
+
 end

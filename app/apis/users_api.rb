@@ -41,5 +41,12 @@ class UsersApi < Grape::API
       user.update_attributes!(declared(params, include_missing: false))
       represent user, with: UserRepresenter
     end
+
+    desc 'Get list of checkins for user'
+    get :checkins do
+      user = User.find(params[:id])
+      checkins = Checkin.filter(user: user)
+      represent checkins, with: CheckinRepresenter
+    end
   end
 end

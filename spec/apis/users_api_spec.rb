@@ -66,4 +66,23 @@ describe UsersApi do
 
   end
 
+  describe "GET /users/:id/checkins" do
+
+    it 'returns a list of checkins for this user' do
+      user = FactoryGirl.create(:user)
+      business_1 = FactoryGirl.create(:business)
+      business_2 = FactoryGirl.create(:business)
+      checkin_1 = Checkin.create(user: user, business: business_1)
+      checkin_2 = Checkin.create(user: user, business: business_2)
+
+      get "/users/#{user.id}/checkins"
+      response = JSON.parse(last_response.body)
+
+      expect(last_response.status).to eq(200)
+      expect(response['data'].length).to eq(2)
+      expect(response['data']).to include(CheckinRepresenter.new(checkin_1).to_hash)
+    end
+
+  end
+
 end

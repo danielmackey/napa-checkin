@@ -1,6 +1,9 @@
 class Checkin < ActiveRecord::Base
   include Napa::FilterByHash
 
+  # Note: This could be set in an initializer, or even per business
+  FREQUENCY = ENV['CHECKIN_FREQUENCY'].to_i || 5.minutes
+
   belongs_to :user
   belongs_to :business
 
@@ -13,7 +16,7 @@ class Checkin < ActiveRecord::Base
 
     def no_recent_checkins
       return unless user && business
-      if Checkin.filter(user: user, business: business).since(5.minutes.ago).any?
+      if Checkin.filter(user: user, business: business).since(FREQUENCY.ago).any?
         errors.add(:base, 'already recently checked in')
       end
     end

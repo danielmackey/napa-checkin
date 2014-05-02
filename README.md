@@ -120,6 +120,9 @@ an ENV variable `ENV['CHECKIN_FREQUENCY']` and is accessible as a constant
 on `Checkin::FREQUENCY`.
 
 #### Possible enhancements to prevent abuse
+
+> **NOTE**: Will be adding this token functionality this evening
+
 Right now, there is nothing to prevent a client from creating checkins for
 and existing user in the system. If our client was a mobile app, where only
 only the logged in user should be able to check in to a business, we could
@@ -127,6 +130,30 @@ add a `UserToken` model, and an login endpoint on the `UsersApi` to authenticate
 a user (with username/password) and return a token. The checkin endpoint would no
 longer require/allow an explicit `user_id` to be sent, and instead reference the `token`
 to look up the user.
+
+
+
+## Getting checkins for User/Business
+
+I've added some extra endpoints to a business or user to grab the checkins related to it.
+
+### Business checkins
+```sh
+curl http://localhost:9393/businesses/1/checkins
+```
+
+```json
+{"data":[{"object_type":"checkin","id":"1","user_id":1,"business_id":1,"created_at":"2014-05-02 15:31:19 UTC"},{"object_type":"checkin","id":"2","user_id":1,"business_id":1,"created_at":"2014-05-02 17:45:05 UTC"}]}
+```
+
+### User checkins
+```sh
+curl http://localhost:9393/users/1/checkins
+```
+
+```json
+{"data":[{"object_type":"checkin","id":"1","user_id":1,"business_id":1,"created_at":"2014-05-02 15:31:19 UTC"},{"object_type":"checkin","id":"2","user_id":1,"business_id":1,"created_at":"2014-05-02 17:45:05 UTC"}]}
+```
 
 
 ## Specs

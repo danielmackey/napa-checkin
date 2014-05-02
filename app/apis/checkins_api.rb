@@ -31,16 +31,6 @@ class CheckinsApi < Grape::API
       checkin = Checkin.find(params[:id])
       represent checkin, with: CheckinRepresenter
     end
-
-    desc 'Update an checkin'
-    params do
-    end
-    put do
-      # fetch checkin record and update attributes.  exceptions caught in app.rb
-      checkin = Checkin.find(params[:id])
-      checkin.update_attributes!(declared(params, include_missing: false))
-      represent checkin, with: CheckinRepresenter
-    end
   end
 
 end

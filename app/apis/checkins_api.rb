@@ -12,6 +12,8 @@ class CheckinsApi < Grape::API
 
   desc 'Create an checkin'
   params do
+    requires :user_id, type: Integer, desc: 'ID of user checking in'
+    requires :business_id, type: Integer, desc: 'ID of business being checked into'
   end
 
   post do

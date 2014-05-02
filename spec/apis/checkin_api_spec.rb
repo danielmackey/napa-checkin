@@ -20,4 +20,23 @@ describe CheckinsApi do
 
   end
 
+  describe 'POST /checkins' do
+
+    it 'creates a valid checkin' do
+      post '/checkins', user_id: user.id, business_id: business.id
+      expect(last_response.status).to eq 201
+    end
+
+    it 'requires a valid user id' do
+      post '/checkins', business_id: business.id
+      expect(last_response.status).to eq 400
+    end
+
+    it 'requires a valid business id' do
+      post '/checkins', user_id: user.id
+      expect(last_response.status).to eq 400
+    end
+
+  end
+
 end

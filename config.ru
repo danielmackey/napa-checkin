@@ -11,9 +11,9 @@ require './app'
 # end
 #
 # use Honeybadger::Rack
-# use Napa::Middleware::Logger
 
 use Napa::Middleware::AppMonitor
+use Napa::Middleware::Logger
 #use Napa::Middleware::Authentication # disable for now
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 

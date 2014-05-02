@@ -1,18 +1,12 @@
 class CheckinsApi < Grape::API
 
-  helpers do
-    def current_user
-      User.find(params[:user_id])
-    end
-  end
-
   desc 'Get a list of checkins'
   params do
-    requires :user_id, type: Integer, desc: 'ID of user'
+    optional :user_id, type: Integer, desc: 'ID of user to filter with'
     optional :ids, type: String, desc: 'comma separated checkin ids'
   end
   get do
-    checkins = current_user.checkins.filter(declared(params, include_missing: false))
+    checkins = Checkin.filter(declared(params, include_missing: false))
     represent checkins, with: CheckinRepresenter
   end
 

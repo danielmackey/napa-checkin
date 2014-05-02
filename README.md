@@ -199,6 +199,7 @@ rspec spec/
 ```
 
 ## TODO:
+- Implement [User Token functionality](#possible-enhancements-to-prevent-abuse)
 - Add a `rake db:seed` task (possibly add to napa)
 - Add endpoint to list unique visitors for business @ `/businesses/:id/visitors`
 

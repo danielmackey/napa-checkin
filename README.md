@@ -27,7 +27,7 @@ which will server the service at http://localhost:9393
 
 This service utilizes the basic `Napa::Middleware::Authentication` to serve as an API key.
 
-Setting `HEADER_PASSWORDS='suchsecure,muchpassword'` in the `.env` file will allow those two passwords to act as api keys for every request.
+Setting `HEADER_PASSWORDS='suchsecure,muchpassword'` in the `.env` file will allow those two passwords to act as API keys for every request.
 
 In a more robust environment, a mechanism for creating, storing, and validating API keys for various clients would be built.
 

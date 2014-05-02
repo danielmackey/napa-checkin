@@ -26,7 +26,7 @@ class CheckinsApi < Grape::API
     requires :id, desc: 'ID of the checkin'
   end
   route_param :id do
-    desc 'Get an checkin'
+    desc 'Get a checkin'
     get do
       checkin = Checkin.find(params[:id])
       represent checkin, with: CheckinRepresenter

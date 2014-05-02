@@ -129,3 +129,19 @@ longer require/allow an explicit `user_id` to be sent, and instead reference the
 to look up the user.
 
 
+## Specs
+
+To run the suite, make sure you've setup your database and run the specs.
+
+```sh
+RACK_ENV=test rake db:create
+RACK_ENV=test rake db:migrate
+rspec spec/
+```
+
+## TODO:
+- Add a `rake db:seed` task (possibly add to napa)
+- Add endpoint to list checkins for user @ `/users/:id/checkins`
+- Add endpoint to list checkins for business @ `/businesses/:id/checkins`
+- Add endpoint to list visitors for business @ `/businesses/:id/visitors`
+

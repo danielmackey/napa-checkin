@@ -12,6 +12,8 @@ class UsersApi < Grape::API
   params do
     requires :name, type: String, desc: 'user name'
     requires :email, type: String, desc: 'user email'
+    requires :password, type: String, desc: 'user password'
+    requires :password_confirmation, type: String, desc: 'user confirmed password'
   end
 
   post do

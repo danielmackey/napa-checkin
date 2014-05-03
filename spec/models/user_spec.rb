@@ -5,17 +5,17 @@ describe User do
   describe :validations do
 
     it 'is valid with required attributes' do
-      user = User.new(name: 'Daniel Mackey', email: 'daniel@danielmackey.com')
+      user = User.new(name: 'Daniel Mackey', email: 'daniel@danielmackey.com', password: 'password', password_confirmation: 'password')
       expect(user.valid?).to be true
     end
 
     it 'is invalid without a name' do
-      user = User.new(email: 'daniel@danielmackey.com')
+      user = User.new(email: 'daniel@danielmackey.com', password: 'password', password_confirmation: 'password')
       expect(user.valid?).to be false
     end
 
     it 'is invalid without an email' do
-      user = User.new(name: 'Daniel Mackey')
+      user = User.new(name: 'Daniel Mackey', password: 'password', password_confirmation: 'password')
       expect(user.valid?).to be false
     end
 

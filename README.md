@@ -40,6 +40,8 @@ curl -X POST
   --header 'Password: suchsecure'
   -d name="Daniel Mackey"
   -d email="daniel@danielmackey.com"
+  -d password="password"
+  -d password_confirmation="password"
   http://localhost:9393/users
 ```
 

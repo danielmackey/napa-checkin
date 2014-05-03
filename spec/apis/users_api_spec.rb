@@ -20,7 +20,7 @@ describe UsersApi do
   describe 'POST /users' do
 
     it 'creates a user with all attributes' do
-      post '/users', name: 'Daniel Mackey', email: 'daniel@danielmackey.com'
+      post '/users', name: 'Daniel Mackey', email: 'daniel@danielmackey.com', password: 'password', password_confirmation: 'password'
       expect(last_response.status).to eq(201)
     end
 

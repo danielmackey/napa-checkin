@@ -5,6 +5,7 @@ class ApplicationApi < Grape::API
   mount CheckinsApi => '/checkins'
   mount BusinessesApi => '/businesses'
   mount UsersApi => '/users'
+  mount TokensApi => '/tokens'
 
   add_swagger_documentation
 end

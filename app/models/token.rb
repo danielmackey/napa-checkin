@@ -1,7 +1,7 @@
 class Token < ActiveRecord::Base
   include Napa::FilterByHash
 
-  before_validation :generate_token, on: :create
+  after_initialize :generate_token
 
   belongs_to :user
 
@@ -11,6 +11,6 @@ class Token < ActiveRecord::Base
   private
 
     def generate_token
-      self.value = Digest::SHA1.hexdigest([Time.now, rand].join)
+      self.value ||= Digest::SHA1.hexdigest([Time.now, rand].join)
     end
 end

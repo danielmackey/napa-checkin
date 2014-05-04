@@ -130,11 +130,14 @@ utilize an accepted pattern like OAuth.
 
 A checkin happens when a [user](#creating-users) visits a
 [business](#creating-businesses), so we need both of those to
-exist in the system to create a checkin.
+exist in the system to create a checkin. Once we have both a user and
+a business in the system, we need to obtain a [token](#tokens) for that user.
+
+Take the `business_id` and `token` value and `POST` it to the checkins endpoint.
 
 ```sh
 curl -X POST
-  -d user_id=1
+  -d token=c99d5b8b703003855dd9c9ee9feb41aa109f7495
   -d business_id=1
   http://localhost:9393/checkins
 ```
@@ -153,26 +156,18 @@ Returns:
 ```
 
 #### Preventing abuse
-You'll notice the response includes a `created_at` timestamp.
+In order to prevent any client from checking in on any given user's behalf,
+we've implemented a token strategy. This requires you to [obtain a token](#tokens) from
+the system once you have valid user credentials. This model would allow a single
+developer making one client to allow users to login and then act on their behalf.
+
+In addition to user tokens, you'll notice the response includes a `created_at` timestamp.
 We store this to prevent the same user from checking into the same
 business within a given window of time.
 
 This value is set to `5.minutes` by default, but can be configured via
 an ENV variable `ENV['CHECKIN_FREQUENCY']` and is accessible as a constant
 on `Checkin::FREQUENCY`.
-
-#### Possible enhancements to prevent abuse
-
-> **NOTE**: Will be adding this token functionality this evening
-
-Right now, there is nothing to prevent a client from creating checkins for
-and existing user in the system. If our client was a mobile app, where only
-only the logged in user should be able to check in to a business, we could
-add a `UserToken` model, and an login endpoint on the `UsersApi` to authenticate
-a user (with username/password) and return a token. The checkin endpoint would no
-longer require/allow an explicit `user_id` to be sent, and instead reference the `token`
-to look up the user.
-
 
 
 ## Getting checkins for User/Business
@@ -241,7 +236,6 @@ rspec spec/
 ```
 
 ## TODO:
-- Implement [User Token functionality](#possible-enhancements-to-prevent-abuse)
 - Add a `rake db:seed` task (possibly add to napa)
 - Add endpoint to list unique visitors for business @ `/businesses/:id/visitors`
 

@@ -23,9 +23,8 @@ class TokensApi < Grape::API
 
     desc 'Destroy a token'
     delete do
-      token = Token.find_by_value(params[:value])
+      token = Token.find_by_value!(params[:value])
       token.destroy
-      represent token, with: TokenRepresenter
     end
   end
 end

@@ -39,4 +39,20 @@ describe BusinessesApi do
 
   end
 
+  describe 'DELETE /tokens/:value' do
+
+    it 'deletes existing token' do
+      token = Token.create(user: user)
+      expect {
+        delete "/tokens/#{token.value}"
+      }.to change{Token.count}.by(-1)
+    end
+
+    it 'returns 404 if token not found' do
+      delete '/tokens/not_valid_token_value'
+      expect(last_response.status).to eq(404)
+    end
+
+  end
+
 end

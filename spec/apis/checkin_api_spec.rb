@@ -22,28 +22,45 @@ describe CheckinsApi do
 
   describe 'POST /checkins' do
 
+    let(:token) { Token.create(user: user) }
+
     it 'creates a valid checkin' do
-      post '/checkins', user_id: user.id, business_id: business.id
+      post '/checkins', token: token.value, business_id: business.id
+      response = JSON.parse(last_response.body)
       expect(last_response.status).to eq 201
+      expect(response['data']['user_id']).to eq(user.id)
+      expect(response['data']['business_id']).to eq(business.id)
     end
 
-    it 'requires a valid user id' do
+    it 'requires a token' do
       post '/checkins', business_id: business.id
+      response = JSON.parse(last_response.body)
       expect(last_response.status).to eq 400
+      expect(response['error']['message']).to include 'token is missing'
+    end
+
+    it 'returns 403 unauthorized if passed a bad token' do
+      post '/checkins', business_id: business.id, token: 'bad token value'
+      response = JSON.parse(last_response.body)
+      expect(last_response.status).to eq 403
+      expect(response['error']['code']).to include 'invalid_token'
+      expect(response['error']['message']).to include 'invalid token'
     end
 
     it 'requires a valid business id' do
-      post '/checkins', user_id: user.id
+      post '/checkins', token: token.value
+      response = JSON.parse(last_response.body)
       expect(last_response.status).to eq 400
+      expect(response['error']['message']).to include 'business_id is missing'
     end
 
     it 'does not allow repeat checkins' do
       # first checkin succeeds
-      post '/checkins', user_id: user.id, business_id: business.id
+      post '/checkins', token: token.value, business_id: business.id
       expect(last_response.status).to eq 201
 
       # try again, right after
-      post '/checkins', user_id: user.id, business_id: business.id
+      post '/checkins', token: token.value, business_id: business.id
       response = JSON.parse(last_response.body)
       expect(last_response.status).to eq 500
       expect(response['error']['code']).to eq('record_invalid')

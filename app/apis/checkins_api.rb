@@ -12,14 +12,19 @@ class CheckinsApi < Grape::API
 
   desc 'Create an checkin'
   params do
-    requires :user_id, type: Integer, desc: 'ID of user checking in'
+    requires :token, type: String, desc: 'token for user checking in'
     requires :business_id, type: Integer, desc: 'ID of business being checked into'
   end
 
   post do
-    checkin = Checkin.create(declared(params, include_missing: false))
-    error!(present_error(:record_invalid, checkin.errors.full_messages)) unless checkin.errors.empty?
-    represent checkin, with: CheckinRepresenter
+    token = Token.find_by_value(params[:token])
+    if token
+      checkin = Checkin.create(user: token.user, business_id: params[:business_id])
+      error!(present_error(:record_invalid, checkin.errors.full_messages)) unless checkin.errors.empty?
+      represent checkin, with: CheckinRepresenter
+    else
+      error!(present_error(:invalid_token, ['invalid token']), 403)
+    end
   end
 
   params do

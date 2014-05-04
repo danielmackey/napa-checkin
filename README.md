@@ -85,6 +85,46 @@ Returns:
 }
 ```
 
+### Tokens
+
+Any action done on behalf of a user will require a token, which is
+unique to that user. A token is obtained by passing the email address and password
+of that user to the tokens endpoint:
+
+```sh
+curl -X POST
+  -d email="daniel@danielmackey.com"
+  -d password="password"
+  http://localhost:9393/tokens
+```
+
+Returns:
+
+**Valid credentials**
+```json
+{
+  "data":{
+    "object_type": "token",
+    "value": "c99d5b8b703003855dd9c9ee9feb41aa109f7495",
+    "user_id": 1
+  }
+}
+```
+
+**Invalid credentials**
+```json
+{
+  "error":{
+    "code": "invalid_credentials",
+    "message": ["email and/or password do not match"]
+  }
+}
+```
+
+A token can be deleted by sending `DELETE` to
+`http://localhost:9393/tokens/:value`. In a more robust service,
+the tokens would implement some sort of TTL, or even better,
+utilize an accepted pattern like OAuth.
 
 ### Creating a Checkin
 
